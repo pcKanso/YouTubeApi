@@ -123,6 +123,7 @@
         NSString *streamName = ingestionInfo.streamName;
         liveEvent.rtmpServerUrl = ingestionInfo.ingestionAddress;
         liveEvent.streamName = streamName;
+        liveEvent.resolution = stream.cdn.resolution;
         liveEvent.backupIngestionAddress = [NSString stringWithFormat:@"%@/%@", ingestionInfo.ingestionAddress, streamName];
     }
 }

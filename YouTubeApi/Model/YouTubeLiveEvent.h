@@ -13,6 +13,7 @@
 @property(nonatomic, strong) NSString *streamName;
 @property(nonatomic, strong) NSString *rtmpServerUrl;
 @property(nonatomic, strong) NSString *backupIngestionAddress;
+@property(nonatomic, strong) NSString *resolution;
 
 -(void)setEvent:(GTLYouTubeLiveBroadcast *)event;
 - (NSString *)getIdentifier;
