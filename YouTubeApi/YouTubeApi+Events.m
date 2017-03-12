@@ -20,7 +20,7 @@
 @implementation YouTubeApi (Events)
 
 - (void)createEvent:(NSString *)eventName withDate:(NSDate *)startTime withPrivacySettings:(NSString *)privacySettings
-        withBitrate:(NSString *)bitrate withCompletion:(void (^)(YouTubeLiveEvent *, BOOL))completion {
+        withBitrate:(NSString *)bitrate withCompletion:(void (^)(YouTubeLiveEvent *, NSError *))completion {
     if (completion == nil) {
         NSLog(@"completion is nil at create YouTube event");
         return;
@@ -43,7 +43,7 @@
     WEAK_SELF;
     [self.youTubeService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLYouTubeLiveBroadcast *liveBroadcast, NSError *error) {
         if (error != nil) {
-            completion(nil, NO);
+            completion(nil, error);
             return;
         }
         STRONG_WEAK_SELF;
@@ -59,7 +59,7 @@
         GTLQueryYouTube *streamQuery = [GTLQueryYouTube queryForLiveStreamsInsertWithObject:stream part:@"snippet,cdn"];
         [self.youTubeService executeQuery:streamQuery completionHandler:^(GTLServiceTicket *streamTicket, GTLYouTubeLiveStream *liveStream, NSError *streamError) {
             if (streamError != nil) {
-                completion(nil, NO);
+                completion(nil, streamError);
                 return;
             }
             GTLQueryYouTube *bindQuery = [GTLQueryYouTube queryForLiveBroadcastsBindWithIdentifier:liveBroadcast.identifier
@@ -68,7 +68,7 @@
             [self.youTubeService executeQuery:bindQuery completionHandler:^(GTLServiceTicket *bindTicket, id object, NSError *bindError) {
                 YouTubeLiveEvent *event = [YouTubeLiveEvent new];
                 [self fillYouTubeEventWith:liveBroadcast liveEvent:event stream:liveStream];
-                completion(event, bindError == nil);
+                completion(event, bindError);
             }];
         }];
     }];
