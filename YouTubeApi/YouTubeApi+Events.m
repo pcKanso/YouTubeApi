@@ -86,7 +86,7 @@
     [self changeBroadcast:broadcastId withStatus:@"complete" withCompletion:completion];
 }
 
-- (void)getEventLisGetEventListWithTime:(enum EventTime)time withCompletion:(void (^)(NSArray *))completion {
+- (void)getEventListWithTime:(enum EventTime)time withCompletion:(void (^)(NSArray *))completion {
     NSDictionary *mapping = @{
             @(UPCOMING) : @"upcoming",
             @(PAST) : @"completed",

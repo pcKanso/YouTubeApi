@@ -11,15 +11,18 @@
 
 
 @implementation YouTubeApi (Stream)
--(void)getStreamStatus:(NSString *)streamId withCompletino:(void(^)(BOOL))completion {
+
+-(void)getStreamStatus:(NSString *)streamId withCompletino:(void (^)(NSString *))completion {
     GTLQueryYouTube *query = [GTLQueryYouTube queryForLiveStreamsListWithPart:@"status"];
     query.identifier = streamId;
     [self.youTubeService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLYouTubeLiveStreamListResponse *streamListResponse, NSError *error) {
-        BOOL isActive = error == nil;
-        if (isActive) {
-            isActive = [((GTLYouTubeLiveStream *) streamListResponse.items.firstObject).status.streamStatus isEqualToString:@"active"];
+        NSString *status = nil;
+        if (error == nil) {
+            status = ((GTLYouTubeLiveStream *) streamListResponse.items.firstObject).status.streamStatus;
         }
-        completion(isActive);
+        if (completion != nil) {
+            completion(status);
+        }
     }];
 }
 @end

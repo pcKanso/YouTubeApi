@@ -21,4 +21,5 @@
 - (NSString *)getThumbUrl;
 - (NSString *)getWatchUri;
 - (NSString *)streamId;
+- (NSString *)startTime;
 @end

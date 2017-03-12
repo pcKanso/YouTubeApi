@@ -46,5 +46,12 @@
     return self.event.contentDetails.boundStreamId;
 }
 
+- (NSString *)startTime {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    GTLDateTime *date = self.event.snippet.actualStartTime ?: self.event.snippet.scheduledStartTime;
+    return [dateFormatter stringFromDate:date.date];
+}
+
 
 @end

@@ -19,5 +19,5 @@ enum EventTime {
 - (void)startEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion;
 - (void)prepareEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion;
 - (void)endEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion;
-- (void)getEventLisGetEventListWithTime:(enum EventTime)time withCompletion:(void (^)(NSArray *))completion;
+- (void)getEventListWithTime:(enum EventTime)time withCompletion:(void (^)(NSArray *))completion;
 @end
