@@ -12,13 +12,12 @@
 
 @implementation YouTubeApi (Channel)
 - (void)checkIsLiveStreamingEnabled:(void(^)(BOOL))completion {
-    GTLQueryYouTube *query = [GTLQueryYouTube queryForChannelsListWithPart:@"status"];
+    GTLQueryYouTube *query = [GTLQueryYouTube queryForChannelsListWithPart:@"id, status"];
+    query.mine = YES;
     [self.youTubeService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLYouTubeChannelListResponse *response, NSError *error) {
-        for(GTLYouTubeChannel *channel in response.items) {
-            if (completion != nil) {
-                completion(channel.status.longUploadsStatus != nil);
-                break;
-            }
+        GTLYouTubeChannel *channel = response.items.firstObject;
+        if (completion != nil) {
+            completion(channel != nil && channel.status.longUploadsStatus != nil && [channel.status.longUploadsStatus isEqualToString:@"allowed"]);
         }
     }];
 }

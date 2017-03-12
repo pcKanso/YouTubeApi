@@ -65,9 +65,9 @@
             GTLQueryYouTube *bindQuery = [GTLQueryYouTube queryForLiveBroadcastsBindWithIdentifier:liveBroadcast.identifier
                                                                                               part:@"id,contentDetails"];
             bindQuery.streamId = liveStream.identifier;
-            [self.youTubeService executeQuery:bindQuery completionHandler:^(GTLServiceTicket *bindTicket, id object, NSError *bindError) {
+            [self.youTubeService executeQuery:bindQuery completionHandler:^(GTLServiceTicket *bindTicket, GTLYouTubeLiveBroadcast *bindBroadcast, NSError *bindError) {
                 YouTubeLiveEvent *event = [YouTubeLiveEvent new];
-                [self fillYouTubeEventWith:liveBroadcast liveEvent:event stream:liveStream];
+                [self fillYouTubeEventWith:bindBroadcast liveEvent:event stream:liveStream];
                 completion(event, bindError);
             }];
         }];
@@ -86,9 +86,15 @@
     [self changeBroadcast:broadcastId withStatus:@"complete" withCompletion:completion];
 }
 
-- (void)getEventListWithCompletion:(void(^)(NSArray *))completion {
+- (void)getEventLisGetEventListWithTime:(enum EventTime)time withCompletion:(void (^)(NSArray *))completion {
+    NSDictionary *mapping = @{
+            @(UPCOMING) : @"upcoming",
+            @(PAST) : @"completed",
+            @(LIVE) : @"active",
+            @(ALL) : @"all"
+    };
     GTLQueryYouTube *query = [GTLQueryYouTube queryForLiveBroadcastsListWithPart:@"id,snippet,contentDetails,status"];
-    query.broadcastStatus = @"upcoming";
+    query.broadcastStatus = mapping[@(time)];
     [self.youTubeService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLYouTubeLiveBroadcastListResponse *object, NSError *error) {
         if (completion == nil) {
             return;
