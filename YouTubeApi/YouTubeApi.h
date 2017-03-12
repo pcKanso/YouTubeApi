@@ -17,6 +17,7 @@
 - (BOOL)isAuthorized;
 
 - (void)authenticateWithParent:(UIViewController *)parentViewConotroller withClientId:(NSString *)clientId withCompletion:(void (^)(BOOL))completion;
--(BOOL) resumeAuthorizationFlowWithURL:(NSURL *) url;
-- (GTLServiceYouTube *)youTubeService;
+- (BOOL)resumeAuthorizationFlowWithURL:(NSURL *) url;
+- (GTLServiceYouTube *)youTubeService; //TODO: need incapsulate into YouTubeApi class
+- (void)logout;
 @end

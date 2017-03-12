@@ -61,6 +61,10 @@ NSString *const kGTLRAuthScopeYouTube = @"https://www.googleapis.com/auth/youtub
     return service;
 }
 
+- (void)logout {
+    [GTMOAuth2KeychainCompatibility removeAuthFromKeychainForName:kKeychainItemName];
+}
+
 - (BOOL)isAuthorized {
     return [self.youTubeService.authorizer canAuthorize];
 }
