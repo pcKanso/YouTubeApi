@@ -22,4 +22,5 @@
 - (NSString *)getWatchUri;
 - (NSString *)streamId;
 - (NSString *)startTime;
+- (NSString *)liveChatId;
 @end

@@ -14,11 +14,13 @@
 
 @implementation YouTubeApi (Comments)
 
-- (void)getCommetnsList:(NSString *)chatId withCompletion:(void (^)(NSArray *))completion {
-//    GTLQueryYouTube *query = [GTLQueryYouTube quer]
-    GTLQueryYouTube *query = [GTLQueryYouTube queryForLiveChatMessagesListWithLiveChatId:chatId part:@"id, snippet"];
-    [self.youTubeService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLYouTubeLiveChatMessageListResponse *response, NSError *error) {
 
+- (void)getCommentsList:(NSString *)chatId withPageToken:(NSString *)pageToken withCompletion:(void(^)(NSArray *, NSString *, NSNumber *))completion {
+    GTLQueryYouTube *query = [GTLQueryYouTube queryForLiveChatMessagesListWithLiveChatId:chatId part:@"id, snippet"];
+    if (pageToken != nil) {
+        query.pageToken = pageToken;
+    }
+    [self.youTubeService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLYouTubeLiveChatMessageListResponse *response, NSError *error) {
         if (error == nil) {
             NSMutableArray *array = [NSMutableArray new];
             for (GTLYouTubeLiveChatMessage *message in response.items) {
@@ -29,9 +31,10 @@
                 youTubeMessage.profileImageUrl = message.authorDetails.profileImageUrl;
                 [array addObject:youTubeMessage];
             }
-            completion(array);
+            completion(array, response.nextPageToken, response.pollingIntervalMillis);
         }
     }];
 }
+
 
 @end

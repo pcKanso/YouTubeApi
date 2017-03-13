@@ -7,5 +7,5 @@
 #import "YouTubeApi.h"
 
 @interface YouTubeApi (Comments)
--(void)getCommetnsList:(NSString *)chatId withCompletion:(void (^)(NSArray *))completion;
+- (void)getCommentsList:(NSString *)chatId withPageToken:(NSString *)pageToken withCompletion:(void(^)(NSArray *, NSString *, NSNumber *))completion;
 @end

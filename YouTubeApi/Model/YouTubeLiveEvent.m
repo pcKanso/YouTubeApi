@@ -53,5 +53,8 @@
     return [dateFormatter stringFromDate:date.date];
 }
 
+- (NSString *)liveChatId {
+    return self.event.snippet.liveChatId;
+}
 
 @end
