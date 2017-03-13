@@ -17,7 +17,7 @@
 		6998FEF23375BAE85654A3F9 /* YouTubeApi.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6998FF26F39B598D93849AB7 /* YouTubeApi.h */; };
 		6998FF0A2311C619B6704E69 /* YouTubeApi+Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6998FF2ABA71C645B5D69B6D /* YouTubeApi+Comments.m */; };
 		6998FF151B3D6323D7B178C4 /* YouTubeApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 6998FB2F7E597A8FE0F998BD /* YouTubeApi.m */; };
-		6998FF8A7E96B432F48B6848 /* YouTubeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6998F38D008763AB918C24D5 /* YouTubeMessage.m */; };
+		6998FF8A7E96B432F48B6848 /* YouTubeComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6998F38D008763AB918C24D5 /* YouTubeComment.m */; };
 		D9AB0AFAD65204BC72D0ED1F /* libPods-YouTubeApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB25CE01C0F769676A6B0BC /* libPods-YouTubeApi.a */; };
 /* End PBXBuildFile section */
 
@@ -38,12 +38,12 @@
 		4DB25CE01C0F769676A6B0BC /* libPods-YouTubeApi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YouTubeApi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6998F1304D72EA832FB9EB3D /* YouTubeApi+Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YouTubeApi+Events.h"; sourceTree = "<group>"; };
 		6998F33C0F148AF779561274 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		6998F38D008763AB918C24D5 /* YouTubeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeMessage.m; sourceTree = "<group>"; };
+		6998F38D008763AB918C24D5 /* YouTubeComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeComment.m; sourceTree = "<group>"; };
 		6998F3B4BCF34D01885280E9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6998F3CFBBA8021C528BEC3A /* YouTubeApi.podspec */ = {isa = PBXFileReference; lastKnownFileType = file.podspec; path = YouTubeApi.podspec; sourceTree = "<group>"; };
 		6998F48D23AB0DC25BDC791E /* YouTubeApi+Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YouTubeApi+Events.m"; sourceTree = "<group>"; };
 		6998F68A89587B811C7042F9 /* YouTubeLiveEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeLiveEvent.h; sourceTree = "<group>"; };
-		6998F6E4593AF10454E0AA78 /* YouTubeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeMessage.h; sourceTree = "<group>"; };
+		6998F6E4593AF10454E0AA78 /* YouTubeComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeComment.h; sourceTree = "<group>"; };
 		6998F829ADC6514229C44C91 /* YouTubeApi+Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YouTubeApi+Stream.m"; sourceTree = "<group>"; };
 		6998F914599DAF5AA7E7B863 /* YouTubeApi+Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YouTubeApi+Comments.h"; sourceTree = "<group>"; };
 		6998F992412CF67265A2D8E9 /* YouTubeLiveEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeLiveEvent.m; sourceTree = "<group>"; };
@@ -85,8 +85,8 @@
 		6998F6BC9C441FBFAF82AEC3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6998F6E4593AF10454E0AA78 /* YouTubeMessage.h */,
-				6998F38D008763AB918C24D5 /* YouTubeMessage.m */,
+				6998F6E4593AF10454E0AA78 /* YouTubeComment.h */,
+				6998F38D008763AB918C24D5 /* YouTubeComment.m */,
 				6998F68A89587B811C7042F9 /* YouTubeLiveEvent.h */,
 				6998F992412CF67265A2D8E9 /* YouTubeLiveEvent.m */,
 			);
@@ -229,7 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6998FF151B3D6323D7B178C4 /* YouTubeApi.m in Sources */,
-				6998FF8A7E96B432F48B6848 /* YouTubeMessage.m in Sources */,
+				6998FF8A7E96B432F48B6848 /* YouTubeComment.m in Sources */,
 				6998F718FC0D7B893CACFD61 /* YouTubeLiveEvent.m in Sources */,
 				6998FF0A2311C619B6704E69 /* YouTubeApi+Comments.m in Sources */,
 				6998F681277CDA32B3F4A5E8 /* YouTubeApi+Events.m in Sources */,

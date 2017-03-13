@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface YouTubeMessage : NSObject
+@interface YouTubeComment : NSObject
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSDate *published;
 @property (nonatomic, strong) NSString *authorName;

@@ -6,7 +6,7 @@
 #import "YouTubeApi+Comments.h"
 #import "GTLQueryYouTube.h"
 #import "GTLYouTubeLiveChatMessageListResponse.h"
-#import "YouTubeMessage.h"
+#import "YouTubeComment.h"
 #import "GTLYouTubeLiveChatMessage.h"
 #import "GTLYouTubeLiveChatMessageSnippet.h"
 #import "GTLYouTubeLiveChatMessageAuthorDetails.h"
@@ -22,7 +22,7 @@
         if (error == nil) {
             NSMutableArray *array = [NSMutableArray new];
             for (GTLYouTubeLiveChatMessage *message in response.items) {
-                YouTubeMessage *youTubeMessage = [YouTubeMessage new];
+                YouTubeComment *youTubeMessage = [YouTubeComment new];
                 youTubeMessage.text = message.snippet.displayMessage;
                 youTubeMessage.published = message.snippet.publishedAt.date;
                 youTubeMessage.authorName = message.authorDetails.displayName;

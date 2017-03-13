@@ -3,10 +3,10 @@
 // Copyright (c) 2016 Anton Turko. All rights reserved.
 //
 
-#import "YouTubeMessage.h"
+#import "YouTubeComment.h"
 
 
-@implementation YouTubeMessage {
+@implementation YouTubeComment {
 
 }
 
