@@ -74,24 +74,24 @@
     }];
 }
 
-- (void)startEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion {
+- (void)startEvent:(NSString *)broadcastId withCompletion:(void (^)(BOOL))completion {
     [self changeBroadcast:broadcastId withStatus:@"live" withCompletion:completion];
 }
 
-- (void)prepareEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion {
+- (void)prepareEvent:(NSString *)broadcastId withCompletion:(void (^)(BOOL))completion {
     [self changeBroadcast:broadcastId withStatus:@"testing" withCompletion:completion];
 }
 
-- (void)endEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion {
+- (void)endEvent:(NSString *)broadcastId withCompletion:(void (^)(BOOL))completion {
     [self changeBroadcast:broadcastId withStatus:@"complete" withCompletion:completion];
 }
 
 - (void)getEventListWithTime:(enum EventTime)time withCompletion:(void (^)(NSArray *))completion {
     NSDictionary *mapping = @{
-            @(UPCOMING) : @"upcoming",
-            @(PAST) : @"completed",
-            @(LIVE) : @"active",
-            @(ALL) : @"all"
+            @(UPCOMING): @"upcoming",
+            @(PAST): @"completed",
+            @(LIVE): @"active",
+            @(ALL): @"all"
     };
     GTLQueryYouTube *query = [GTLQueryYouTube queryForLiveBroadcastsListWithPart:@"id,snippet,contentDetails,status"];
     query.broadcastStatus = mapping[@(time)];
@@ -145,7 +145,7 @@
     }];
 }
 
-- (void)getLiveStream:(NSString *)streamId withCompletion:(void(^)(GTLYouTubeLiveStream *))completion {
+- (void)getLiveStream:(NSString *)streamId withCompletion:(void (^)(GTLYouTubeLiveStream *))completion {
     GTLQueryYouTube *query = [GTLQueryYouTube queryForLiveStreamsListWithPart:@"cdn,status"];
     query.identifier = streamId;
     [self.youTubeService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLYouTubeLiveStreamListResponse *stream, NSError *error) {
@@ -153,6 +153,16 @@
             return;
         }
         completion(stream != nil ? stream.items.firstObject : nil);
+    }];
+}
+
+- (void)setThumbnails:(NSData *)image forVideoId:(NSString *)videoId withMimeType:(NSString *)mimeType withCompletion:(void (^)(BOOL))completion {
+    GTLUploadParameters *uploadParameters = [GTLUploadParameters uploadParametersWithData:image MIMEType:mimeType];
+    GTLQueryYouTube *queryYouTube = [GTLQueryYouTube queryForThumbnailsSetWithVideoId:videoId uploadParameters:uploadParameters];
+    [self.youTubeService executeQuery:queryYouTube completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        if (completion != nil) {
+            completion(error == nil);
+        }
     }];
 }
 
