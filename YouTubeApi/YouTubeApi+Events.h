@@ -21,4 +21,5 @@ enum EventTime {
 - (void)endEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion;
 - (void)getEventListWithTime:(enum EventTime)time withCompletion:(void (^)(NSArray *))completion;
 - (void)setThumbnails:(NSData *)image forVideoId:(NSString *)videoId withMimeType:(NSString *)mimeType withCompletion:(void (^)(BOOL))completion;
+- (void)deleteEventWithId:(NSString *)eventID withCompletion:(void(^)(BOOL))completion;
 @end

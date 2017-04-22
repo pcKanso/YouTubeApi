@@ -166,4 +166,14 @@
     }];
 }
 
+- (void)deleteEventWithId:(NSString *)eventID withCompletion:(void (^)(BOOL))completion {
+    GTLQueryYouTube *queryYouTube = [GTLQueryYouTube queryForLiveBroadcastsDeleteWithIdentifier:eventID];
+    [self.youTubeService executeQuery:queryYouTube completionHandler:^(GTLServiceTicket *ticket, id object, NSError *error) {
+        if (completion != nil) {
+            completion(error == nil);
+        }
+    }];
+}
+
+
 @end
