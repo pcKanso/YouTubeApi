@@ -6,11 +6,9 @@
 #import <GTMAppAuth/GTMOAuth2KeychainCompatibility.h>
 #import <AppAuth/OIDServiceConfiguration.h>
 #import "YouTubeApi.h"
-#import "OIDAuthorizationService.h"
-#import "OIDAuthorizationRequest.h"
 #import "AppAuth.h"
-#import "GTMAppAuth.h"
 #import "GTLRYouTubeService.h"
+#import "GTMAppAuth.h"
 
 
 #define GoogleApp @"apps.googleusercontent.com"

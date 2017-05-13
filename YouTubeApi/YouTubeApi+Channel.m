@@ -3,8 +3,8 @@
 // Copyright (c) 2017 Walls. All rights reserved.
 //
 
+#import <GoogleAPIClientForREST/GTLRYouTube.h>
 #import "YouTubeApi+Channel.h"
-#import "GTLRYouTube.h"
 
 
 @implementation YouTubeApi (Channel)

@@ -3,12 +3,9 @@
 // Copyright (c) 2016 Anton Turko. All rights reserved.
 //
 
+#import <GoogleAPIClientForREST/GTLRYouTube.h>
 #import "YouTubeApi+Comments.h"
-#import "GTLRYouTubeQuery.h"
 #import "YouTubeComment.h"
-#import "GTLRService.h"
-#import "GTLRYouTubeService.h"
-#import "GTLRYouTube.h"
 
 
 @implementation YouTubeApi (Comments)

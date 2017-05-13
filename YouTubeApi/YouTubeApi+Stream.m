@@ -3,8 +3,8 @@
 // Copyright (c) 2016 Anton Turko. All rights reserved.
 //
 
+#import <GoogleAPIClientForREST/GTLRYouTube.h>
 #import "YouTubeApi+Stream.h"
-#import "GTLRYouTube.h"
 
 
 @implementation YouTubeApi (Stream)
