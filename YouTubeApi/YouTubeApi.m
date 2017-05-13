@@ -16,7 +16,7 @@
 #define kClientSecret nil
 #define kKeychainItemName @"google_auth"
 
-NSString *const kGTLRAuthScopeYouTube = @"https://www.googleapis.com/auth/youtube";
+//NSString *const kGTLRAuthScopeYouTube = @"https://www.googleapis.com/auth/youtube";
 
 @interface YouTubeApi ()
 @property(nonatomic, strong, nullable) id <OIDAuthorizationFlowSession> currentAuthorizationFlow;
@@ -47,12 +47,16 @@ NSString *const kGTLRAuthScopeYouTube = @"https://www.googleapis.com/auth/youtub
     return _instance;
 }
 
+- (void) setAPIKey:(NSString *)key {
+    self.youTubeService.APIKey = key;
+}
+
 - (GTLRYouTubeService *)youTubeService {
     static GTLRYouTubeService *service;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         service = [[GTLRYouTubeService alloc] init];
-        service.shouldFetchNextPages = YES;
+        service.shouldFetchNextPages = NO;
         service.retryEnabled = YES;
         service.authorizer = [GTMAppAuthFetcherAuthorization authorizationFromKeychainForName:kKeychainItemName];
     });

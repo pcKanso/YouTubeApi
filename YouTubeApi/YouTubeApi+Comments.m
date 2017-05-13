@@ -12,7 +12,7 @@
 
 
 - (void)getCommentsList:(NSString *)chatId withPageToken:(NSString *)pageToken withCompletion:(void(^)(NSArray *, NSString *, NSNumber *))completion {
-    GTLRYouTubeQuery_LiveChatMessagesList *query = [GTLRYouTubeQuery_LiveChatMessagesList queryWithLiveChatId:chatId part:@"id, snippet"];
+    GTLRYouTubeQuery_LiveChatMessagesList *query = [GTLRYouTubeQuery_LiveChatMessagesList queryWithLiveChatId:chatId part:@"id, snippet, authorDetails"];
     if (pageToken != nil) {
         query.pageToken = pageToken;
     }
