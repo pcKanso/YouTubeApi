@@ -5,12 +5,12 @@
 
 #import <GTMAppAuth/GTMOAuth2KeychainCompatibility.h>
 #import <AppAuth/OIDServiceConfiguration.h>
-#import "GTLServiceYouTube.h"
 #import "YouTubeApi.h"
 #import "OIDAuthorizationService.h"
 #import "OIDAuthorizationRequest.h"
 #import "AppAuth.h"
 #import "GTMAppAuth.h"
+#import "GTLRYouTubeService.h"
 
 
 #define GoogleApp @"apps.googleusercontent.com"
@@ -49,11 +49,11 @@ NSString *const kGTLRAuthScopeYouTube = @"https://www.googleapis.com/auth/youtub
     return _instance;
 }
 
-- (GTLServiceYouTube *)youTubeService {
-    static GTLServiceYouTube *service;
+- (GTLRYouTubeService *)youTubeService {
+    static GTLRYouTubeService *service;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        service = [[GTLServiceYouTube alloc] init];
+        service = [[GTLRYouTubeService alloc] init];
         service.shouldFetchNextPages = YES;
         service.retryEnabled = YES;
         service.authorizer = [GTMAppAuthFetcherAuthorization authorizationFromKeychainForName:kKeychainItemName];

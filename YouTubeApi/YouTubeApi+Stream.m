@@ -3,22 +3,19 @@
 // Copyright (c) 2016 Anton Turko. All rights reserved.
 //
 
-#import <GoogleAPIClient/GTLYouTubeLiveStream.h>
-#import <GoogleAPIClient/GTLYouTubeLiveStreamStatus.h>
 #import "YouTubeApi+Stream.h"
-#import "GTLQueryYouTube.h"
-#import "GTLYouTubeLiveStreamListResponse.h"
+#import "GTLRYouTube.h"
 
 
 @implementation YouTubeApi (Stream)
 
 -(void)getStreamStatus:(NSString *)streamId withCompletino:(void (^)(NSString *))completion {
-    GTLQueryYouTube *query = [GTLQueryYouTube queryForLiveStreamsListWithPart:@"status"];
+    GTLRYouTubeQuery_LiveStreamsList *query = [GTLRYouTubeQuery_LiveStreamsList queryWithPart:@"status"];
     query.identifier = streamId;
-    [self.youTubeService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLYouTubeLiveStreamListResponse *streamListResponse, NSError *error) {
+    [self.youTubeService executeQuery:query completionHandler:^(GTLRServiceTicket *ticket, GTLRYouTube_LiveStreamListResponse *streamListResponse, NSError *error) {
         NSString *status = nil;
         if (error == nil) {
-            status = ((GTLYouTubeLiveStream *) streamListResponse.items.firstObject).status.streamStatus;
+            status = ((GTLRYouTube_LiveStream *) streamListResponse.items.firstObject).status.streamStatus;
         }
         if (completion != nil) {
             completion(status);

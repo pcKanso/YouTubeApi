@@ -3,22 +3,18 @@
 // Copyright (c) 2016 Anton Turko. All rights reserved.
 //
 
-#import <GoogleAPIClient/GTLYouTubeLiveBroadcast.h>
-#import <GoogleAPIClient/GTLYouTubeLiveBroadcastSnippet.h>
-#import <GoogleAPIClient/GTLYouTubeThumbnailDetails.h>
-#import <GoogleAPIClient/GTLYouTubeThumbnail.h>
-#import <GoogleAPIClient/GTLYouTubeLiveBroadcastContentDetails.h>
 #import "YouTubeLiveEvent.h"
+#import "GTLRYouTube.h"
 
 @interface YouTubeLiveEvent ()
-@property (nonatomic, strong) GTLYouTubeLiveBroadcast *event;
+@property (nonatomic, strong) GTLRYouTube_LiveBroadcast *event;
 @end
 
 @implementation YouTubeLiveEvent {
 
 }
 
-- (void)setEvent:(GTLYouTubeLiveBroadcast *)event {
+- (void)setEvent:(GTLRYouTube_LiveBroadcast *)event {
     _event = event;
 }
 
@@ -49,7 +45,7 @@
 - (NSString *)startTime {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    GTLDateTime *date = self.event.snippet.actualStartTime ?: self.event.snippet.scheduledStartTime;
+    GTLRDateTime *date = self.event.snippet.actualStartTime ?: self.event.snippet.scheduledStartTime;
     return [dateFormatter stringFromDate:date.date];
 }
 

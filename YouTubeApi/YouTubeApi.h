@@ -3,8 +3,9 @@
 // Copyright (c) 2016 Anton Turko. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "GTLServiceYouTube.h"
+#import <UIKit/UIKit.h>
+
+@class GTLRYouTubeService;
 
 #define WEAK_SELF __weak typeof (self) weakSelf = self
 #define STRONG_WEAK_SELF __strong typeof(weakSelf) self = weakSelf
@@ -15,9 +16,8 @@
 
 + (YouTubeApi *)instance;
 - (BOOL)isAuthorized;
-
-- (void)authenticateWithParent:(UIViewController *)parentViewConotroller withClientId:(NSString *)clientId withCompletion:(void (^)(BOOL))completion;
+- (void)authenticateWithParent:(UIViewController *)parentViewController withClientId:(NSString *)clientId withCompletion:(void (^)(BOOL))completion;
 - (BOOL)resumeAuthorizationFlowWithURL:(NSURL *) url;
-- (GTLServiceYouTube *)youTubeService; //TODO: need incapsulate into YouTubeApi class
+- (GTLRYouTubeService *)youTubeService; //TODO: need incapsulate into YouTubeApi class
 - (void)logout;
 @end

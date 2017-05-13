@@ -5,9 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class GTLYouTubeLiveBroadcast;
-@class GTLYouTubeLiveStream;
-
+@class GTLRYouTube_LiveBroadcast;
 
 @interface YouTubeLiveEvent : NSObject
 @property(nonatomic, strong) NSString *streamName;
@@ -15,7 +13,7 @@
 @property(nonatomic, strong) NSString *backupIngestionAddress;
 @property(nonatomic, strong) NSString *resolution;
 
--(void)setEvent:(GTLYouTubeLiveBroadcast *)event;
+-(void)setEvent:(GTLRYouTube_LiveBroadcast *)event;
 - (NSString *)getIdentifier;
 - (NSString *)getTitle;
 - (NSString *)getThumbUrl;

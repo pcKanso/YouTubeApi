@@ -4,26 +4,28 @@
 //
 
 #import "YouTubeApi+Comments.h"
-#import "GTLQueryYouTube.h"
-#import "GTLYouTubeLiveChatMessageListResponse.h"
+#import "GTLRYouTubeQuery.h"
 #import "YouTubeComment.h"
-#import "GTLYouTubeLiveChatMessage.h"
-#import "GTLYouTubeLiveChatMessageSnippet.h"
-#import "GTLYouTubeLiveChatMessageAuthorDetails.h"
+#import "GTLRService.h"
+#import "GTLRYouTubeService.h"
+#import "GTLRYouTube.h"
 
 
 @implementation YouTubeApi (Comments)
 
 
 - (void)getCommentsList:(NSString *)chatId withPageToken:(NSString *)pageToken withCompletion:(void(^)(NSArray *, NSString *, NSNumber *))completion {
-    GTLQueryYouTube *query = [GTLQueryYouTube queryForLiveChatMessagesListWithLiveChatId:chatId part:@"id, snippet"];
+    GTLRYouTubeQuery_LiveChatMessagesList *query = [GTLRYouTubeQuery_LiveChatMessagesList queryWithLiveChatId:chatId part:@"id, snippet"];
     if (pageToken != nil) {
         query.pageToken = pageToken;
     }
-    [self.youTubeService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLYouTubeLiveChatMessageListResponse *response, NSError *error) {
+    [self.youTubeService executeQuery:query completionHandler:^(GTLRServiceTicket *ticket, GTLRYouTube_LiveChatMessageListResponse *response, NSError *error) {
+        if (completion == nil) {
+            return;
+        }
         if (error == nil) {
             NSMutableArray *array = [NSMutableArray new];
-            for (GTLYouTubeLiveChatMessage *message in response.items) {
+            for (GTLRYouTube_LiveChatMessage *message in response.items) {
                 YouTubeComment *youTubeMessage = [YouTubeComment new];
                 youTubeMessage.text = message.snippet.displayMessage;
                 youTubeMessage.published = message.snippet.publishedAt.date;
@@ -32,6 +34,8 @@
                 [array addObject:youTubeMessage];
             }
             completion(array, response.nextPageToken, response.pollingIntervalMillis);
+        } else {
+            completion(nil, nil, nil);
         }
     }];
 }
