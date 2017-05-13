@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.summary             = 'Wrapper for Google YouTube Data API.'
   s.source              = { :git => 'https://github.com/turok/YouTubeApi.git' }
   s.dependency          'GTMAppAuth'
-  s.dependency          'GoogleAPIClient/YouTube'
+  s.dependency          'GoogleAPIClientForREST/YouTube'
   s.vendored_frameworks = 'YouTubeApi.framework'
   s.source_files        = 'YouTubeApi/*.{h,m}', 'YouTubeApi/Model/*.{h,m}'
 end
