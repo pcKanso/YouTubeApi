@@ -15,7 +15,7 @@ enum EventTime {
 };
 
 @interface YouTubeApi (Events)
-- (void)createEvent:(NSString *)eventName withDate:(NSDate *)startTime withPrivacySettings:(NSString *)privacySettings withBitrate:(NSString *)bitrate withCompletion:(void (^)(YouTubeLiveEvent *, NSError *))completion;
+- (void)createEvent:(NSString *)eventName withDescription:(NSString *)description withDate:(NSDate *)startTime withPrivacySettings:(NSString *)privacySettings withBitrate:(NSString *)bitrate withCompletion:(void (^)(YouTubeLiveEvent *, NSError *))completion;
 - (void)startEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion;
 - (void)prepareEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion;
 - (void)endEvent:(NSString *)broadcastId withCompletion:(void(^)(BOOL))completion;
