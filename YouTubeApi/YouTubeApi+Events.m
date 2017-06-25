@@ -47,7 +47,7 @@
 
 - (GTLRYouTubeQuery_LiveBroadcastsBind *)CreateBind:(GTLRYouTube_LiveBroadcast *)liveBroadcast withStream:(GTLRYouTube_LiveStream *)liveStream {
     GTLRYouTubeQuery_LiveBroadcastsBind *bindQuery = [GTLRYouTubeQuery_LiveBroadcastsBind queryWithIdentifier:liveBroadcast.identifier
-                                                                                              part:@"id,contentDetails, snippet"];
+                                                                                                         part:@"id,contentDetails, snippet"];
     bindQuery.streamId = liveStream.identifier;
     return bindQuery;
 }
@@ -117,40 +117,49 @@
     [self changeBroadcast:broadcastId withStatus:@"complete" withCompletion:completion];
 }
 
-- (void)getEventListWithTime:(enum EventTime)time withCompletion:(void (^)(NSArray *))completion {
+- (void)getEventListWithTime:(enum EventTime)time withLimit:(NSUInteger)limit withPageToken:(NSString *)pageToken withCompletion:(void (^)(NSArray *, NSString *))completion {
     NSDictionary *mapping = @{
             @(UPCOMING): @"upcoming",
             @(PAST): @"completed",
             @(LIVE): @"active",
             @(ALL): @"all"
     };
-    GTLRYouTubeQuery_LiveBroadcastsList *query = [GTLRYouTubeQuery_LiveBroadcastsList queryWithPart:@"id,snippet,contentDetails,status"];
+    GTLRYouTubeQuery_LiveBroadcastsList *query = [GTLRYouTubeQuery_LiveBroadcastsList queryWithPart:@"id,contentDetails,snippet"];
     query.broadcastStatus = mapping[@(time)];
+    query.maxResults = limit;
+    query.pageToken = pageToken;
+    WEAK_SELF;
     [self.youTubeService executeQuery:query completionHandler:^(GTLRServiceTicket *ticket, GTLRYouTube_LiveBroadcastListResponse *object, NSError *error) {
         if (completion == nil) {
             return;
         }
         if (error != nil) {
-            completion(nil);
+            completion(nil, nil);
             return;
         }
-        NSMutableArray *events = [NSMutableArray new];
-        for (GTLRYouTube_LiveBroadcast *broadcast in object.items) {
-            YouTubeLiveEvent *liveEvent = [YouTubeLiveEvent new];
-            NSString *streamId = broadcast.contentDetails.boundStreamId;
-            if (streamId != nil) {
-                dispatch_group_enter(self.dispatchGroup);
-                [self getLiveStream:streamId withCompletion:^(GTLRYouTube_LiveStream *stream) {
-                    [self fillYouTubeEventWith:broadcast liveEvent:liveEvent stream:stream];
-                    dispatch_group_leave(self.dispatchGroup);
-                }];
-            }
-            [events addObject:liveEvent];
-        }
+        STRONG_WEAK_SELF;
+        NSMutableArray *events = [self mappingEvents:object];
         dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), ^{
-            completion(events);
+            completion(events, object.nextPageToken);
         });
     }];
+}
+
+- (NSMutableArray *)mappingEvents:(GTLRYouTube_LiveBroadcastListResponse *)object {
+    NSMutableArray *events = [NSMutableArray new];
+    for (GTLRYouTube_LiveBroadcast *broadcast in object.items) {
+        YouTubeLiveEvent *liveEvent = [YouTubeLiveEvent new];
+        NSString *streamId = broadcast.contentDetails.boundStreamId;
+        if (streamId != nil) {
+            dispatch_group_enter(self.dispatchGroup);
+            [self getLiveStream:streamId withCompletion:^(GTLRYouTube_LiveStream *stream) {
+                [self fillYouTubeEventWith:broadcast liveEvent:liveEvent stream:stream];
+                dispatch_group_leave(self.dispatchGroup);
+            }];
+        }
+        [events addObject:liveEvent];
+    }
+    return events;
 }
 
 - (void)fillYouTubeEventWith:(GTLRYouTube_LiveBroadcast *)broadcast liveEvent:(YouTubeLiveEvent *)liveEvent stream:(GTLRYouTube_LiveStream *)stream {
