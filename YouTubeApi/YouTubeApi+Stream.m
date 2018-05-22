@@ -9,7 +9,7 @@
 
 @implementation YouTubeApi (Stream)
 
--(void)getStreamStatus:(NSString *)streamId withCompletino:(void (^)(NSString *))completion {
+-(void)getStreamStatus:(NSString *)streamId withCompletion:(void (^)(NSString *))completion {
     GTLRYouTubeQuery_LiveStreamsList *query = [GTLRYouTubeQuery_LiveStreamsList queryWithPart:@"status"];
     query.identifier = streamId;
     [self.youTubeService executeQuery:query completionHandler:^(GTLRServiceTicket *ticket, GTLRYouTube_LiveStreamListResponse *streamListResponse, NSError *error) {

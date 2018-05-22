@@ -1,4 +1,4 @@
-platform :ios, '7.0'
+platform :ios, '9.0'
 
 target 'YouTubeApi' do
   pod 'GoogleAPIClientForREST/YouTube'

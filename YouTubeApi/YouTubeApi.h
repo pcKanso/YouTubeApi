@@ -15,7 +15,7 @@
 @property (nonatomic, strong) dispatch_group_t dispatchGroup;
 
 + (YouTubeApi *)instance;
-- (void) setAPIKey:(NSString *)key;
+- (void)setAPIKey:(NSString *)key;
 - (BOOL)isAuthorized;
 - (void)authenticateWithParent:(UIViewController *)parentViewController withClientId:(NSString *)clientId withCompletion:(void (^)(BOOL))completion;
 - (BOOL)resumeAuthorizationFlowWithURL:(NSURL *) url;

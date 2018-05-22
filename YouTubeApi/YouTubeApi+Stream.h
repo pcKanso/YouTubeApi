@@ -7,5 +7,5 @@
 #import "YouTubeApi.h"
 
 @interface YouTubeApi (Stream)
--(void)getStreamStatus:(NSString *)streamId withCompletino:(void (^)(NSString *))completion;
+-(void)getStreamStatus:(NSString *)streamId withCompletion:(void (^)(NSString *))completion;
 @end

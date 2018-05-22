@@ -85,9 +85,11 @@
                                                        redirectURL:[NSURL URLWithString:kRedirectURI]
                                                       responseType:OIDResponseTypeCode
                                               additionalParameters:nil];
+    
     self.currentAuthorizationFlow = [OIDAuthState authStateByPresentingAuthorizationRequest:request
-                                                                   presentingViewController:parentViewController
-                                                                                   callback:^(OIDAuthState *_Nullable authState, NSError *_Nullable error) {
+            presentingViewController:parentViewController
+                            callback:^(OIDAuthState *_Nullable authState, NSError *_Nullable error)
+            {
                 if (authState) {
                     GTMAppAuthFetcherAuthorization *authorization = [[GTMAppAuthFetcherAuthorization alloc] initWithAuthState:authState];
                     [GTMAppAuthFetcherAuthorization saveAuthorization:authorization toKeychainForName:kKeychainItemName];

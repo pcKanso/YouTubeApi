@@ -62,8 +62,10 @@
 
 - (GTLRYouTube_CdnSettings *)createStreamCDNSettings:(NSString *)bitrate {
     GTLRYouTube_CdnSettings *cdn = [GTLRYouTube_CdnSettings new];
-    cdn.format = bitrate;
+//    cdn.format = bitrate;
     cdn.ingestionType = @"rtmp";
+    cdn.resolution = kGTLRYouTube_CdnSettings_Resolution_X720p;
+    cdn.frameRate = kGTLRYouTube_CdnSettings_FrameRate_X30fps;
     return cdn;
 }
 
@@ -178,6 +180,7 @@
     GTLRYouTubeQuery_LiveBroadcastsTransition *query = [GTLRYouTubeQuery_LiveBroadcastsTransition queryWithBroadcastStatus:status identifier:broadcastId part:@"status"];
     [self.youTubeService executeQuery:query completionHandler:^(GTLRServiceTicket *ticket, id object, NSError *error) {
         if (completion != nil) {
+            NSLog(@"Change broadcast status error %@", error);
             completion(error == nil);
         } else {
             NSLog(@"Change broadcast status error %@", error);
