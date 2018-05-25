@@ -86,24 +86,22 @@
                                                       responseType:OIDResponseTypeCode
                                               additionalParameters:nil];
     
-    self.currentAuthorizationFlow = [OIDAuthState authStateByPresentingAuthorizationRequest:request
-            presentingViewController:parentViewController
-                            callback:^(OIDAuthState *_Nullable authState, NSError *_Nullable error)
-            {
-                if (authState) {
-                    GTMAppAuthFetcherAuthorization *authorization = [[GTMAppAuthFetcherAuthorization alloc] initWithAuthState:authState];
-                    [GTMAppAuthFetcherAuthorization saveAuthorization:authorization toKeychainForName:kKeychainItemName];
-                    self.youTubeService.authorizer = authorization;
-                    NSLog(@"Youtube got authorization tokens. Access token: %@",
-                            authState.lastTokenResponse.accessToken);
-                } else {
-                    NSLog(@"Youtube authorization error: %@", [error localizedDescription]);
-//                                                                   self.authorization = nil;
-                }
-                if (completion != nil) {
-                    completion(authState != nil);
-                }
-            }];
+    self.currentAuthorizationFlow = [OIDAuthState authStateByPresentingAuthorizationRequest:request presentingViewController:parentViewController callback:^(OIDAuthState *_Nullable authState, NSError *_Nullable error)
+    {
+        if (authState) {
+            GTMAppAuthFetcherAuthorization *authorization = [[GTMAppAuthFetcherAuthorization alloc] initWithAuthState:authState];
+            [GTMAppAuthFetcherAuthorization saveAuthorization:authorization toKeychainForName:kKeychainItemName];
+            self.youTubeService.authorizer = authorization;
+            NSLog(@"Youtube got authorization tokens. Access token: %@",
+                  authState.lastTokenResponse.accessToken);
+        } else {
+            NSLog(@"Youtube authorization error: %@", [error localizedDescription]);
+            // self.authorization = nil;
+        }
+        if (completion != nil) {
+            completion(authState != nil);
+        }
+    }];
 }
 
 - (BOOL)resumeAuthorizationFlowWithURL:(NSURL *)url {
